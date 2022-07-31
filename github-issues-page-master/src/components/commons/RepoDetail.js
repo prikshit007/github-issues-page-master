@@ -56,7 +56,3 @@ const RepoDetail = ({ tag, value }) => (
 
 export default RepoDetail;
 
-Detail.propTypes = {
-  tag: PropTypes.string.isRequired,
-  value: PropTypes.string.isRequired,
-};

@@ -96,14 +96,4 @@ const Header = ({
 export default Header;
 
 
-Header.propTypes = {
-  name: PropTypes.string.isRequired,
-  html_url: PropTypes.string.isRequired,
-  owner: PropTypes.shape({
-    login: PropTypes.string.isRequired,
-    url: PropTypes.string.isRequired,
-  }).isRequired,
-  stargazers_count: PropTypes.number.isRequired,
-  subscribers_count: PropTypes.number.isRequired,
-  forks_count: PropTypes.number.isRequired,
-};
+

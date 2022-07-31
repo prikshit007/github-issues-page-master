@@ -69,13 +69,3 @@ const Detail = ({
 export default Detail;
 
 
-Detail.propTypes = {
-  tagBackgroundColor: PropTypes.string.isRequired,
-  valueBackgroundColor: PropTypes.string.isRequired,
-  tagPadding: PropTypes.string.isRequired,
-  tag: PropTypes.string.isRequired,
-  value: PropTypes.string.isRequired,
-  tagHref: PropTypes.string.isRequired,
-  valueHref: PropTypes.string.isRequired,
-  valuePadding: PropTypes.string.isRequired,
-};

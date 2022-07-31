@@ -1,7 +1,7 @@
 /* eslint-disable no-nested-ternary */
-import React, { Component } from 'react';
-import { connect } from 'react-redux';
-import PropTypes from 'prop-types';
+import React, { useEffect } from 'react';
+import {  useDispatch,useSelector } from 'react-redux';
+
 import styled from 'styled-components';
 import { fetchGitIssues } from '../actions';
 import Issue from '../components/issues-table/Issue';
@@ -12,69 +12,29 @@ const IssuesContainerWrapper = styled.div`
    border :  1px solid #e1e4e8;
    border-collapse : collapse;
 `;
-class IssuesContainer extends Component {
-  componentDidMount() {
-    const { requestIssues } = this.props;
-    requestIssues();
-  }
 
-  render() {
-    const {
-      fetching, issues, error,
-    } = this.props;
+const IssuesContainer=()=>{
+  const dispatch=useDispatch();
+  const issuesData=useSelector(state=>state.issuesData);
+  useEffect(()=>{
+    dispatch(fetchGitIssues());
+  },[])
 
-    return (
+  return(
+  <div>
+  {issuesData.fetching ? (
+    <LoaderComponent />
+  ) : (issuesData.error ? <SomethingWentWrong />
+    : (
+      <IssuesContainerWrapper>
+        { !!issuesData.issues
+              && issuesData.issues.map(issue => <Issue key={issue.id} issue={issue} />)
+        }
+      </IssuesContainerWrapper>
+    )
+  )}
 
-      <div>
-        {fetching ? (
-          <LoaderComponent />
-        ) : (error ? <SomethingWentWrong />
-          : (
-            <IssuesContainerWrapper>
-              { !!issues
-                    && issues.map(issue => <Issue key={issue.id} issue={issue} />)
-              }
-            </IssuesContainerWrapper>
-          )
-        )}
-
-      </div>
-
-
-    );
-  }
+</div>
+)
 }
-
-const mapStateToProps = (state) => {
-  const { issuesData } = state;
-
-  const { fetching, issues, error } = issuesData || {
-    fetching: true,
-  };
-
-  return {
-    fetching,
-    issues,
-    error,
-  };
-};
-
-const mapDispatchToProps = dispatch => ({
-  requestIssues: () => dispatch(fetchGitIssues()),
-});
-
-export default connect(mapStateToProps, mapDispatchToProps)(IssuesContainer);
-
-
-IssuesContainer.propTypes = {
-  requestIssues: PropTypes.func.isRequired,
-  fetching: PropTypes.bool.isRequired,
-  error: PropTypes.string,
-  issues: PropTypes.arrayOf(
-    PropTypes.object.isRequired,
-  ).isRequired,
-};
-
-IssuesContainer.defaultProps = {
-  error: null,
-};
+export default IssuesContainer;

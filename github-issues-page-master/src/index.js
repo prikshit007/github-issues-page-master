@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom';
 import { createStore, applyMiddleware, compose } from 'redux';
 import createSagaMiddleware from 'redux-saga';
 import { Provider } from 'react-redux';
+import { createRoot } from 'react-dom/client';
 
 
 
@@ -11,6 +12,8 @@ import rootReducer from './reducers';
 import rootSaga from './sagas';
 
 // create the saga middleware
+const container = document.getElementById('root');
+const root = createRoot(container);
 const sagaMiddleware = createSagaMiddleware();
 
 // dev tools middleware
@@ -26,11 +29,10 @@ const store = createStore(
 // run the saga
 sagaMiddleware.run(rootSaga);
 
-ReactDOM.render(
+root.render(
   <Provider store={store}>
     <App />
-  </Provider>,
-  document.getElementById('root'),
+  </Provider>
 );
 
 

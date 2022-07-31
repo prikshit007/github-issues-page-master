@@ -73,18 +73,3 @@ opened
 export default Issue;
 
 
-Issue.propTypes = {
-  issue:
-    PropTypes.shape(
-      {
-        title: PropTypes.string.isRequired,
-        number: PropTypes.number.isRequired,
-        user:
-          PropTypes.shape({
-            login: PropTypes.string.isRequired,
-          }).isRequired,
-        created_at: PropTypes.string.isRequired,
-        labels: PropTypes.array.isRequired,
-      },
-    ).isRequired,
-};

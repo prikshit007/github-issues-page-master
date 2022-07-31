@@ -60,14 +60,4 @@ const NavigationItem = ({
 export default NavigationItem;
 
 
-NavigationItem.propTypes = {
-  name: PropTypes.string.isRequired,
-  selected: PropTypes.bool.isRequired,
-  value: PropTypes.number,
-  url: PropTypes.string,
-};
 
-NavigationItem.defaultProps = {
-  value: undefined,
-    url : undefined,
-};
